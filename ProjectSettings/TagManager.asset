@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Hostile
+  - ground
+  - SM
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Hostile
+  - Water
+  - UI
+  - Player
+  - Ground
+  - Projectile
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: TreeBackGround5
+    uniqueID: 525361199
+    locked: 0
+  - name: TreeBackGround4
+    uniqueID: 3713456507
+    locked: 0
+  - name: TreeBackGround3
+    uniqueID: 2092835249
+    locked: 0
+  - name: TreeBackGround2
+    uniqueID: 4132146213
+    locked: 0
+  - name: TreeBackGround1
+    uniqueID: 3184812087
+    locked: 0
+  - name: BackGround
+    uniqueID: 1964990517
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Hostile
+    uniqueID: 1302066913
+    locked: 0
+  - name: Front
+    uniqueID: 2408717311
+    locked: 0
+  m_RenderingLayers:
+  - Default
