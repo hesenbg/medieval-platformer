@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f4f289645781a4f8397b2bb23a2b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guard: {fileID: 6769350185082783557}
+  guard: {fileID: 0}
   GuardSightDistance: 3
   IsPlayerOnSight: 0
   OBsize: {x: 7.5, y: 0.7}
@@ -58,11 +58,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1101812200191116120}
   - component: {fileID: 6340100333616045311}
-  - component: {fileID: 6769350185082783557}
   - component: {fileID: 407531687772963142}
   - component: {fileID: 9029053677871573816}
   - component: {fileID: 6691118287204625421}
-  - component: {fileID: 183992637173954262}
+  - component: {fileID: 6263539108870518390}
+  - component: {fileID: 8321826187984813439}
   m_Layer: 3
   m_Name: Guard
   m_TagString: Hostile
@@ -116,45 +116,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6769350185082783557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3541214041762422287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750dc6eb64ffa6b46955cfce5f7496eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  melee: {fileID: 0}
-  guardSight: {fileID: 4609652468977503890}
-  rb: {fileID: 6340100333616045311}
-  Rgc: {fileID: 3919329263884561605}
-  Lgc: {fileID: 5114001482858786876}
-  Decider: {fileID: 183992637173954262}
-  SM: {fileID: 0}
-  GroundLM:
-    serializedVersion: 2
-    m_Bits: 128
-  IsPressingGround: 1
-  GuardCurrentHealth: 0
-  DamagePushVelocity: 2.7
-  FightDistance: 8.5
-  OBPosition: {x: 0, y: 0}
-  StunDuration: 0
-  IdleSpeed: 2
-  ChaseSpeed: 4
-  IsPressingLeft: 1
-  IsPressingRight: 1
-  IsWandering: 1
-  IsFighting: 0
-  IsRunning: 1
-  currentState: 0
-  AttackDuration: 3
-  CurrentAttackDuration: 0
 --- !u!61 &407531687772963142
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -278,7 +239,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &183992637173954262
+--- !u!114 &6263539108870518390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,11 +248,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 3541214041762422287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50fe87cd084a23f43a8238bfb47038c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 16871de491ff6654288359290df8ce3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6691118287204625421}
-  Guard: {fileID: 6769350185082783557}
+  rb: {fileID: 0}
+  leftChecker: {fileID: 0}
+  rightChecker: {fileID: 0}
+  AnimationManager: {fileID: 0}
+  currentState: 0
+  CurrentEnemyType: 0
+--- !u!114 &8321826187984813439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541214041762422287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc6a6744e650734d8330acc3807b1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 0
+  MaxHealth: 100
 --- !u!1 &4065692245927864706
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 4909073824319706298, guid: c64ed5b37bc21904ab1bce84e846f9c3, type: 3}
-  Guard: {fileID: 6769350185082783557}
+  Guard: {fileID: 0}
   AttackAnimation: {fileID: 7400000, guid: b76479f8367bc6b44897f97df53bc0b3, type: 2}
   MaxTime: 1.5
 --- !u!1 &6278180687524293512

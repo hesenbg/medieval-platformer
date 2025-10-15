@@ -119,6 +119,98 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &68021461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 68021463}
+  - component: {fileID: 68021462}
+  m_Layer: 0
+  m_Name: Spline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &68021462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68021461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0
+        y: 0
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: -0.70710665
+          y: 0
+          z: -0
+          w: 0.7071068
+    m_MetaData:
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
+--- !u!4 &68021463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68021461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.245608, y: -0.47574967, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &132464395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170,6 +262,10 @@ PrefabInstance:
     - target: {fileID: 3541214041762422287, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_Name
       value: Guard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541214041762422287, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6769350185082783557, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: melee
@@ -1139,7 +1235,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.71649075, y: 1.1720601, z: -10}
+  m_LocalPosition: {x: -0.7113428, y: 1.17212, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8402,7 +8498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1627976032}
-  player: {fileID: 0}
+  player: {fileID: 135724741}
 --- !u!1 &1714444221
 GameObject:
   m_ObjectHideFlags: 0
@@ -8874,7 +8970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1996339903
 Transform:
   m_ObjectHideFlags: 0
@@ -9288,12 +9384,20 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.716777
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1625159
+      value: 1.31
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9305,15 +9409,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1101812200191116120, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9347,6 +9451,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6263539108870518390, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
+      propertyPath: idleSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6769350185082783557, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: melee
       value: 
@@ -9370,6 +9478,10 @@ PrefabInstance:
     - target: {fileID: 6769350185082783557, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
       propertyPath: OBPosition.y
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321826187984813439, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6769350185082783557, guid: 3556ad039df9de24ead6b48190b1a99a, type: 3}
@@ -9397,3 +9509,4 @@ SceneRoots:
   - {fileID: 1245444445}
   - {fileID: 2133277992}
   - {fileID: 557498990}
+  - {fileID: 68021463}
