@@ -19,6 +19,8 @@ public class GuardSight : MonoBehaviour
     }
     bool CheckIsPlayerAround(Vector2 origin, Vector2 size)
     {
+        Physics2D.Raycast(transform.position, transform.right);
+
         return Physics2D.OverlapBox(transform.position, size, 0, GuardSightLM);
     }
     void OnDrawGizmosSelected()
@@ -26,6 +28,8 @@ public class GuardSight : MonoBehaviour
         if (!Application.isPlaying) return;
 
         // Draw the overlap box at the same position and size
-        Gizmos.DrawWireCube(transform.position, OBsize);
+        Gizmos.color =  UnityEngine.Color.green;
+
+        Gizmos.DrawRay(transform.position, transform.right);
     }
 }

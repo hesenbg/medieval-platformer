@@ -1,9 +1,8 @@
 using UnityEngine;
-public class KIlZone : MonoBehaviour
+public class KillZone : MonoBehaviour
 {
     Player player;
     [SerializeField] CheckPoint CheckPoint;
-    [SerializeField] HealthBarManager healthBarManager;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();

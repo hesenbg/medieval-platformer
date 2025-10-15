@@ -9,7 +9,6 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
     [HideInInspector] public Rigidbody2D rb;
     private GuardSight guardSight;
-    [HideInInspector] public GroundCheking leftChecker;
     [HideInInspector] public GroundCheking rightChecker;
     [HideInInspector] public EnemyAnimationManager AnimationManager;
 
@@ -38,7 +37,6 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         guardSight = GetComponent<GuardSight>();
 
-        leftChecker = GameObject.Find("LGroundCheking").GetComponent<GroundCheking>();
         rightChecker = GameObject.Find("RGroundCheking").GetComponent<GroundCheking>();
 
     }
@@ -103,18 +101,13 @@ public class EnemyAI : MonoBehaviour
     private void Wander()
     {
         // flip direction when edges are reached
-        if (!rightChecker.IsPressing && leftChecker.IsPressing)
+        if (!rightChecker.IsPressing)
         {
             moveDirection *= -1;
-            RotateEnemy();
-        }
-        else if (rightChecker.IsPressing && !leftChecker.IsPressing)
-        {
-            moveDirection *= 1;
-            RotateEnemy();
+            transform.Rotate(0, 180f, 0);
         }
 
-        rb.linearVelocity = idleSpeed * transform.right.normalized;
+        rb.linearVelocityX = idleSpeed * moveDirection;
     }
 
     private void Fight()
@@ -131,14 +124,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void RotateEnemy()
-    {
-        float NewY = 0;
-        NewY += 180;
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x,
-            NewY,
-            transform.eulerAngles.z);
-    }
 
     // === Visual Direction ===
     public float GetDirection() => moveDirection;

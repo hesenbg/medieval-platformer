@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     TrailRenderer tr;
     Animator animator;
     SpriteRenderer sp;
-    [SerializeField] KIlZone kilZone;
+    [SerializeField] KillZone kilZone;
     [SerializeField] SoundManager soundManager;
     // === Movement Variables ===
     [SerializeField] float speed;

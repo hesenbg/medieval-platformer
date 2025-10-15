@@ -12,18 +12,13 @@ public class ProjectileThrower : MonoBehaviour
 
     private void Awake()
     {
-        ArrowTransform = Guard.transform;
+        ArrowTransform = transform;
         ArrowScale = new Vector3(0.2f, 0.3f, 0.2f);
         //ArrowTransform.localScale = ArrowScale;
         MaxTime = AttackAnimation.length;
     }
 
-    private void Update()
-    {
-        ShootArrow();
-    }
-
-    void ShootArrow()
+    public void ShootArrow()
     {
         if (Arrow != null)
         {
@@ -34,10 +29,8 @@ public class ProjectileThrower : MonoBehaviour
             else
             {
                 CurrentTime = 0f;
-                if (Guard.currentState == Guard.GuardState.Fighting)
-                {
-                    Instantiate(Arrow,Guard.transform.position,Guard.transform.rotation);
-                }
+                Instantiate(Arrow,Guard.transform.position,Guard.transform.rotation);
+
             }
         }
     }
