@@ -19,12 +19,13 @@ public class GuardSight : MonoBehaviour
     void Update()
     {
         IsPlayerOnSight = CheckIsPlayerOnSight();
+
         switch (enemy.CurrentEnemyType) {
             case EnemyAI.EnemyType.ranged:
-                CheckIsPlayerOnRange(ArcherRange);
+                IsPlayerOnRange = CheckIsPlayerOnRange(ArcherRange);
                 break;
             case EnemyAI.EnemyType.melee:
-                CheckIsPlayerOnRange(MeleeRange);
+                IsPlayerOnRange = CheckIsPlayerOnRange(MeleeRange);
                 break;
         }
     }

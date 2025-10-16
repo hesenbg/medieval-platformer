@@ -1,8 +1,5 @@
-using System.Collections;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class EnemyAI : MonoBehaviour
 {
@@ -11,9 +8,9 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     private GuardSight guardSight;
     [HideInInspector] public GroundCheking rightChecker;
-    [HideInInspector] public EnemyAnimationManager AnimationManager;
+    public EnemyAnimationManager AnimationManager;
 
-    [SerializeField] EnemyCombat combat;
+    EnemyCombat combat;
 
     // === Health & Combat ===
     private float damagePushVelocity = 1f;
@@ -42,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         guardSight = GameObject.Find("GuardSight").GetComponent<GuardSight>();
 
-        rightChecker = GameObject.Find("RGroundCheking").GetComponent<GroundCheking>();
+        rightChecker = gameObject.GetComponentInChildren<GroundCheking>();
         combat = GetComponent<EnemyCombat>();
     }
 
@@ -60,8 +57,6 @@ public class EnemyAI : MonoBehaviour
     // === Transitions ===
     private void HandleTransitions()
     {
-        bool playerVisible = guardSight != null && guardSight.IsPlayerOnSight;
-
         if(currentState != State.Stunned)
         {
             if (guardSight.IsPlayerOnSight && !guardSight.IsPlayerOnRange)
@@ -101,7 +96,7 @@ public class EnemyAI : MonoBehaviour
 
     void Stun()
     {
-        // play animation
+        // animation plays when player hits enemy
 
         // apply logic
         rb.linearVelocity = Vector3.zero;
@@ -130,6 +125,9 @@ public class EnemyAI : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
         combat.Attack();
+
+        //  combat idle animation
+        AnimationManager.FightAnimation();
     }
 
 

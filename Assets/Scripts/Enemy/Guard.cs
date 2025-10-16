@@ -151,7 +151,7 @@ public class Guard : MonoBehaviour
     public IEnumerator GotDamage()
     {
         // play animation
-        Decider.SetStunBool(true);
+        Decider.StunAnimation(true);
         
         // logic
         rb.linearVelocityX = DamagePushVelocity * player.transform.localScale.x;
@@ -162,7 +162,7 @@ public class Guard : MonoBehaviour
 
         // stop animation
         currentState = GuardState.Fighting;
-        Decider.SetStunBool(false);
+        Decider.StunAnimation(false);
     }
 
     void UpdateDirection()

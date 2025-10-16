@@ -1,22 +1,21 @@
+using System.Threading.Tasks;
 using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public GameObject Arrow;
-    public EnemyAI enemy;
-    [SerializeField] AnimationClip AttackAnimation;
+    EnemyAI enemy;
     [SerializeField] float AttackDelay = 1.5f;
-    Transform ArrowTransform;
     float CurrentTime = 0f;
     [SerializeField] float SlashDistance;
     [SerializeField] float SlashDamage;
+    EnemyAnimationManager animationManager;
 
-
-    Vector3 ArrowScale;
 
     private void Awake()
     {
-        ArrowTransform = transform;
-        ArrowScale = new Vector3(0.2f, 0.3f, 0.2f);
+        enemy = GetComponent<EnemyAI>();
+
+        animationManager = gameObject.GetComponentInParent<EnemyAnimationManager>();
     }
 
     public void Attack()
@@ -35,7 +34,8 @@ public class EnemyCombat : MonoBehaviour
                 {
                     // aplly logic
                     SlashSword();
-                    // aplly animation
+                    // animation
+                    animationManager.PlayAttack();
                 }
                 else
                 {
@@ -52,6 +52,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void SlashSword()
     {
+        // apply logic
         RaycastHit2D Hit;
         Player player;
 
@@ -63,6 +64,6 @@ public class EnemyCombat : MonoBehaviour
             player = Hit.collider.gameObject.GetComponent<Player>();
             player.CurrentHealth -= SlashDamage;
         }
-
     }
 }
+

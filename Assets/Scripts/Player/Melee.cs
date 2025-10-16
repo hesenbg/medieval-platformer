@@ -4,8 +4,7 @@ public class Melee : MonoBehaviour
 {
     bool IsAttacking = false;
     Animator animator;
-    public AnimationClip Attack1;
-    float Attack1Duration;
+    [SerializeField] float Attack1Duration;
     float Attack1DurationValue;
     public  float PlayerDamage = 50;
     public  float DamageGiven=0;
@@ -21,7 +20,6 @@ public class Melee : MonoBehaviour
         Soundmanager = GameObject.FindGameObjectWithTag("SM").GetComponent<SoundManager>();
 
         Attack1DurationValue = 0;
-        Attack1Duration= Attack1.length;
         animator = GetComponent<Animator>();
         EnemyLayer = LayerMask.GetMask("Hostile");
     }
@@ -68,7 +66,7 @@ public class Melee : MonoBehaviour
     public void Attack()
     {
         DamageGiven = 0;
-        HealthManager AttackedEnemy;
+        EnemyHealthManager AttackedEnemy;
         // plays animator
         animator.SetTrigger("Attack");
 
@@ -76,7 +74,7 @@ public class Melee : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            AttackedEnemy = enemy.GetComponentInParent<HealthManager>();
+            AttackedEnemy = enemy.GetComponentInParent<EnemyHealthManager>();
             StartCoroutine(AttackedEnemy.GotDamage(DamageGiven,1));
         }
     }

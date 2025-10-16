@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class HealthManager : MonoBehaviour
+public class EnemyHealthManager : MonoBehaviour
 {
     public float CurrentHealth;
     public float MaxHealth;
@@ -13,16 +13,24 @@ public class HealthManager : MonoBehaviour
         npc = GetComponent<EnemyAI>();
     }
 
+    private void Update()
+    {
+        if(CurrentHealth <=0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public IEnumerator GotDamage(float Damage , float StunDuration)
     {
         npc.currentState = EnemyAI.State.Stunned;
-        npc.AnimationManager.SetStunBool(true);
+        npc.AnimationManager.StunAnimation(true);
 
         CurrentHealth -= Damage;
 
         yield return new WaitForSeconds(StunDuration);
 
-        npc.AnimationManager.SetStunBool(false);
+        npc.AnimationManager.StunAnimation(false);
         npc.currentState = EnemyAI.State.Fighting;
     }
 }   
