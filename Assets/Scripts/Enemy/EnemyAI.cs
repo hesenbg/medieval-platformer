@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -12,14 +13,18 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public GroundCheking rightChecker;
     [HideInInspector] public EnemyAnimationManager AnimationManager;
 
+    [SerializeField] EnemyCombat combat;
+
     // === Health & Combat ===
     private float damagePushVelocity = 1f;
-    private float stunDuration = 1.5f;
+    private float stunDuration = 1.5f; 
 
     // === Movement ===
     [SerializeField] float idleSpeed = 2.5f;
     [SerializeField] float chaseSpeed = 4f;
     [SerializeField] float moveDirection = 1f;
+    [SerializeField] float StunDuration;
+    float StunDurationValue =0;
 
     // === State Management ===
     public enum State { Wander, Fighting, Stunned, Chasing }
@@ -35,10 +40,10 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("Player").gameObject;
         rb = GetComponent<Rigidbody2D>();
-        guardSight = GetComponent<GuardSight>();
+        guardSight = GameObject.Find("GuardSight").GetComponent<GuardSight>();
 
         rightChecker = GameObject.Find("RGroundCheking").GetComponent<GroundCheking>();
-
+        combat = GetComponent<EnemyCombat>();
     }
 
     private void Update()
@@ -57,14 +62,20 @@ public class EnemyAI : MonoBehaviour
     {
         bool playerVisible = guardSight != null && guardSight.IsPlayerOnSight;
 
-        if (playerVisible)
+        if(currentState != State.Stunned)
         {
-            currentState = State.Fighting;
-        }
-        else
-        {
-            currentState = State.Wander;
-            CanAttackAble = false;
+            if (guardSight.IsPlayerOnSight && !guardSight.IsPlayerOnRange)
+            {
+                currentState = State.Chasing;
+            }
+            else if (guardSight.IsPlayerOnSight && guardSight.IsPlayerOnRange)
+            {
+                currentState = State.Fighting;
+            }
+            else if (!guardSight.IsPlayerOnSight)
+            {
+                currentState = State.Wander;
+            }
         }
     }
 
@@ -90,12 +101,17 @@ public class EnemyAI : MonoBehaviour
 
     void Stun()
     {
+        // play animation
 
+        // apply logic
+        rb.linearVelocity = Vector3.zero;
     }
 
     void Chase()
     {
-
+        if (player == null) return;
+        moveDirection = math.sign(player.transform.position.x - rb.transform.position.x);
+        rb.linearVelocityX = chaseSpeed * moveDirection;
     }
 
     private void Wander()
@@ -112,16 +128,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Fight()
     {
-        if (player == null) return;
-        if (CurrentEnemyType == EnemyType.melee)
-        {
-            moveDirection = math.sign(player.transform.position.x - rb.transform.position.x);
-            rb.linearVelocityX = chaseSpeed * moveDirection;
-        }
-        else if (CurrentEnemyType == EnemyType.ranged)
-        {
-            CanAttackAble = true;
-        }
+        rb.linearVelocity = Vector2.zero;
+        combat.Attack();
     }
 
 

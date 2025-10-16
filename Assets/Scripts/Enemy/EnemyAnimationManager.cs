@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyAnimationManager : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] Guard Guard;
+    [SerializeField] EnemyAI Guard;
     private void Update()
     {
         AnimationSwitcher();
@@ -12,10 +12,10 @@ public class EnemyAnimationManager : MonoBehaviour
     {
         switch (Guard.currentState)
         {
-            case Guard.GuardState.Wander:
+            case EnemyAI.State.Wander:
                 RunAnimation();
                 break;
-            case Guard.GuardState.Fighting:
+            case EnemyAI.State.Fighting:
                 FightAnimation();
                 break;
         }
@@ -23,7 +23,7 @@ public class EnemyAnimationManager : MonoBehaviour
     public void SetStunBool(bool stun)
     {
         if (animator == null) return;
-
+        
         animator.SetBool("IsStunned", stun);
     }
 

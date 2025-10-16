@@ -1,27 +1,48 @@
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GuardSight : MonoBehaviour
 { 
-    public Guard guard;
-    LayerMask GuardSightLM ;
-    public float GuardSightDistance= 10f;
+    public EnemyAI enemy;
+    [SerializeField] LayerMask GuardSightLM ;
+    public float GuardSightDistance;
     public bool IsPlayerOnSight = false;
-    [SerializeField] Vector2 OBsize = new Vector2(3, 3);  // overlapbox vector for detecting player around
+    public bool IsPlayerOnRange = false;
+
+    [SerializeField] float MeleeRange;
+    [SerializeField] float ArcherRange;
+    GameObject player;
     void Start()
     {
+        player = GameObject.Find("Player");
         GuardSightLM= LayerMask.GetMask("Player");
     }
     void Update()
     {
-        IsPlayerOnSight = CheckIsPlayerAround(transform.position, OBsize);
+        IsPlayerOnSight = CheckIsPlayerOnSight();
+        switch (enemy.CurrentEnemyType) {
+            case EnemyAI.EnemyType.ranged:
+                CheckIsPlayerOnRange(ArcherRange);
+                break;
+            case EnemyAI.EnemyType.melee:
+                CheckIsPlayerOnRange(MeleeRange);
+                break;
+        }
     }
-    bool CheckIsPlayerAround(Vector2 origin, Vector2 size)
+    public bool CheckIsPlayerOnSight()
     {
-        Physics2D.Raycast(transform.position, transform.right);
+        return  Physics2D.Raycast(transform.position, transform.right,GuardSightDistance,GuardSightLM);
+    }
 
-        return Physics2D.OverlapBox(transform.position, size, 0, GuardSightLM);
+    public bool CheckIsPlayerOnRange(float Range)
+    {
+        if (IsPlayerOnSight && Physics2D.Raycast(transform.position, transform.right, ArcherRange, GuardSightLM))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     void OnDrawGizmosSelected()
     {
@@ -30,6 +51,6 @@ public class GuardSight : MonoBehaviour
         // Draw the overlap box at the same position and size
         Gizmos.color =  UnityEngine.Color.green;
 
-        Gizmos.DrawRay(transform.position, transform.right);
+        Gizmos.DrawLine(transform.position, transform.position+ transform.right.normalized*GuardSightDistance);
     }
 }

@@ -19,6 +19,5 @@ public class HealthBarManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdateHealthBar();
-        Debug.Log(slider.value);
     }
 }
