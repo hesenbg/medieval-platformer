@@ -24,21 +24,21 @@ public class EnemyAnimationManager : MonoBehaviour
     {
         if (animator == null) return;
         
-        animator.SetBool("IsStunned", stun);
+        animator.SetBool("Hurt", stun);
     }
 
     public void RunAnimation()
     {
         if (animator == null) return;
 
-        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsFighting", false);
     }
 
     public void FightAnimation()
     {
         if (animator == null) return;
 
-        animator.SetBool("IsAttacking", true);
+        animator.SetBool("IsFighting", true);
     }
     public void PlayAttack()
     {

@@ -20,27 +20,24 @@ public class EnemyCombat : MonoBehaviour
 
     public void Attack()
     {
-        if (Arrow != null)
+        if (CurrentTime < AttackDelay)
         {
-            if (CurrentTime < AttackDelay)
+            CurrentTime += Time.deltaTime;
+        }
+        else
+        {
+            CurrentTime = 0f;
+
+            if(enemy.CurrentEnemyType == EnemyAI.EnemyType.melee)
             {
-                CurrentTime += Time.deltaTime;
+                // aplly logic
+                SlashSword();
+                // animation
+                animationManager.PlayAttack();
             }
             else
             {
-                CurrentTime = 0f;
-
-                if(enemy.CurrentEnemyType == EnemyAI.EnemyType.melee)
-                {
-                    // aplly logic
-                    SlashSword();
-                    // animation
-                    animationManager.PlayAttack();
-                }
-                else
-                {
-                    ShootArrow();
-                }
+                ShootArrow();
             }
         }
     }
@@ -63,7 +60,9 @@ public class EnemyCombat : MonoBehaviour
         if(Hit.collider.gameObject.layer == 6) { 
             player = Hit.collider.gameObject.GetComponent<Player>();
             player.CurrentHealth -= SlashDamage;
+            Debug.Log("damage done");
         }
+
     }
 }
 

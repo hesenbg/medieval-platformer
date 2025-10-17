@@ -10,6 +10,8 @@ public class GuardSight : MonoBehaviour
 
     [SerializeField] float MeleeRange;
     [SerializeField] float ArcherRange;
+
+    float CurrentRange;
     GameObject player;
     void Start()
     {
@@ -18,16 +20,18 @@ public class GuardSight : MonoBehaviour
     }
     void Update()
     {
-        IsPlayerOnSight = CheckIsPlayerOnSight();
-
         switch (enemy.CurrentEnemyType) {
             case EnemyAI.EnemyType.ranged:
-                IsPlayerOnRange = CheckIsPlayerOnRange(ArcherRange);
+                CurrentRange = ArcherRange;
                 break;
             case EnemyAI.EnemyType.melee:
-                IsPlayerOnRange = CheckIsPlayerOnRange(MeleeRange);
+                CurrentRange = MeleeRange;
                 break;
         }
+
+        IsPlayerOnSight = CheckIsPlayerOnSight();
+        IsPlayerOnRange = CheckIsPlayerOnRange(CurrentRange);
+
     }
     public bool CheckIsPlayerOnSight()
     {
@@ -36,7 +40,7 @@ public class GuardSight : MonoBehaviour
 
     public bool CheckIsPlayerOnRange(float Range)
     {
-        if (IsPlayerOnSight && Physics2D.Raycast(transform.position, transform.right, ArcherRange, GuardSightLM))
+        if (IsPlayerOnSight && Physics2D.Raycast(transform.position, transform.right, CurrentRange, GuardSightLM))
         {
             return true;
         }

@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("Player").gameObject;
         rb = GetComponent<Rigidbody2D>();
-        guardSight = GameObject.Find("GuardSight").GetComponent<GuardSight>();
+        guardSight = gameObject.GetComponentInChildren<GuardSight>();
 
         rightChecker = gameObject.GetComponentInChildren<GroundCheking>();
         combat = GetComponent<EnemyCombat>();
