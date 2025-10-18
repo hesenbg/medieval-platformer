@@ -59,7 +59,7 @@ public class EnemyCombat : MonoBehaviour
 
         if(Hit.collider.gameObject.layer == 6) { 
             player = Hit.collider.gameObject.GetComponent<Player>();
-            player.CurrentHealth -= SlashDamage;
+            player.GetDamage(SlashDamage);
         }
     }
 }

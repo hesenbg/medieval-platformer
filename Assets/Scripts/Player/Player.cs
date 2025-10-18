@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -95,6 +96,18 @@ public class Player : MonoBehaviour
     {     
         CurrentHealth -= Damage;
         soundManager.PlayHurt();
+    }
+    public void GetBladeDamager(float Damage, Vector2 Position, float PushForce)
+    {
+        CurrentHealth -= Damage;
+        soundManager.PlayHurt();
+
+        Vector2 PushDirection = new Vector2(transform.position.x,
+            transform.position.y) - Position;
+
+        PushDirection= PushDirection.normalized*PushForce;
+
+        rb.AddForce(PushDirection);
     }
 
     // setting player's movement paramaters

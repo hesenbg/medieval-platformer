@@ -75,6 +75,7 @@ public class Melee : MonoBehaviour
         {
             AttackedEnemy = enemy.GetComponentInParent<EnemyHealthManager>();
             StartCoroutine(AttackedEnemy.GotDamage(DamageGiven,1));
+
         }
         hitEnemies = null;
     }
