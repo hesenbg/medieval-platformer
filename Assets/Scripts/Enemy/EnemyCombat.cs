@@ -47,7 +47,7 @@ public class EnemyCombat : MonoBehaviour
         Instantiate(Arrow, enemy.transform.position, enemy.transform.rotation);
     }
 
-    private void SlashSword()
+    public void SlashSword()
     {
         // apply logic
         RaycastHit2D Hit;
@@ -60,9 +60,7 @@ public class EnemyCombat : MonoBehaviour
         if(Hit.collider.gameObject.layer == 6) { 
             player = Hit.collider.gameObject.GetComponent<Player>();
             player.CurrentHealth -= SlashDamage;
-            Debug.Log("damage done");
         }
-
     }
 }
 

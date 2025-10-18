@@ -5,20 +5,16 @@ using UnityEngine.UI;
 
 public class SettingsMenuLogic : MonoBehaviour
 {
-
     [SerializeField] Toggle FullScreen;
 
     [SerializeField] Slider Sound;
 
     [SerializeField] AudioMixer mainMixer;
 
-
     private void Update()
     {
-        
         ToggleFullscreen();
         SetMasterVolume(Sound.value);
-
     }
     public void SetMasterVolume(float volume)
     {

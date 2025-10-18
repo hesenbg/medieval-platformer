@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: "\u0130sFighting"
+    m_ConditionEvent: IsFighting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1820279697865566386}
@@ -86,7 +86,7 @@ AnimatorController:
   m_Name: Archer
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: "\u0130sFighting"
+  - m_Name: IsFighting
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -128,7 +128,7 @@ AnimatorStateMachine:
     m_Position: {x: 480, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3155434218206854410}
-    m_Position: {x: 270, y: -40, z: 0}
+    m_Position: {x: 270, y: -60, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -5027441669321732160}
@@ -149,7 +149,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: "\u0130sFighting"
+    m_ConditionEvent: IsFighting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -921269148410364829}

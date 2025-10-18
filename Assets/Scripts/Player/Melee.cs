@@ -6,8 +6,7 @@ public class Melee : MonoBehaviour
     Animator animator;
     [SerializeField] float Attack1Duration;
     float Attack1DurationValue;
-    public  float PlayerDamage = 50;
-    public  float DamageGiven=0;
+    public  float DamageGiven;
     public bool GotDamage = false;
     SoundManager Soundmanager;
 
@@ -31,6 +30,8 @@ public class Melee : MonoBehaviour
         AttackTimer();
 
         GetAtackInput();
+
+       
     }
 
     float AttackFloat=1;
@@ -41,8 +42,7 @@ public class Melee : MonoBehaviour
         {
             // play animation
             animator.SetFloat("AttackFloat",AttackFloat);
-            // do attack logic
-            Attack();
+            animator.SetTrigger("Attack");
             // play sound
             Soundmanager.PlaySlash();
             // set variables
@@ -50,6 +50,7 @@ public class Melee : MonoBehaviour
 
             UpdateAttackFloat();
             
+            // logic called in the enditor via animation event frame accurs
         }
     }
     void UpdateAttackFloat()
@@ -65,10 +66,8 @@ public class Melee : MonoBehaviour
     }
     public void Attack()
     {
-        DamageGiven = 0;
         EnemyHealthManager AttackedEnemy;
         // plays animator
-        animator.SetTrigger("Attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackSpace.position, AttackRange,EnemyLayer);
 
@@ -77,6 +76,7 @@ public class Melee : MonoBehaviour
             AttackedEnemy = enemy.GetComponentInParent<EnemyHealthManager>();
             StartCoroutine(AttackedEnemy.GotDamage(DamageGiven,1));
         }
+        hitEnemies = null;
     }
 
     // finds if player performs an attack

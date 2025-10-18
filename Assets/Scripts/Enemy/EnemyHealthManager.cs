@@ -11,13 +11,20 @@ public class EnemyHealthManager : MonoBehaviour
     private void Start()
     {
         npc = GetComponent<EnemyAI>();
+
+        CurrentHealth= MaxHealth;
     }
 
     private void Update()
     {
-        if(CurrentHealth <=0)
+        CheckDead();
+    }
+
+    void CheckDead()
+    {
+        if (CurrentHealth <= 0)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -25,7 +32,6 @@ public class EnemyHealthManager : MonoBehaviour
     {
         npc.currentState = EnemyAI.State.Stunned;
         npc.AnimationManager.StunAnimation(true);
-
         CurrentHealth -= Damage;
 
         yield return new WaitForSeconds(StunDuration);
