@@ -29,6 +29,9 @@ public class SawBladeLogic : MonoBehaviour
     private void Update()
     {
         Move();
+    }
+    private void FixedUpdate()
+    {
         DamagePlayer();
     }
 
@@ -39,7 +42,7 @@ public class SawBladeLogic : MonoBehaviour
 
         player = hit.GetComponent<Player>();
         if (player != null)
-            player.GetBladeDamager(BladeDamage,transform.position,PushForce);
+            player.GetBladeDamage(BladeDamage,transform.position,PushForce);
     }
 
     void Move()

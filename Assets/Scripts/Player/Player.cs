@@ -97,9 +97,9 @@ public class Player : MonoBehaviour
         CurrentHealth -= Damage;
         soundManager.PlayHurt();
     }
-    public void GetBladeDamager(float Damage, Vector2 Position, float PushForce)
+    public void GetBladeDamage(float Damage, Vector2 Position, float PushForce)
     {
-        CurrentHealth -= Damage;
+        CurrentHealth -= Damage*Time.deltaTime;
         soundManager.PlayHurt();
 
         Vector2 PushDirection = new Vector2(transform.position.x,
