@@ -105,12 +105,16 @@ public class EnemyAI : MonoBehaviour
     void Chase()
     {
         if (player == null) return;
-        moveDirection = math.sign(player.transform.position.x - rb.transform.position.x);
+        moveDirection = math.sign(player.transform.position.x - transform.position.x);
         rb.linearVelocityX = chaseSpeed * moveDirection;
     }
 
+    float PrevDirection;
+
     private void Wander()
     {
+        PrevDirection = moveDirection;  
+
         // flip direction when edges are reached
         if (!rightChecker.IsPressing)
         {
@@ -118,7 +122,7 @@ public class EnemyAI : MonoBehaviour
             transform.Rotate(0, 180f, 0);
         }
 
-        rb.linearVelocityX = idleSpeed * moveDirection;
+        rb.linearVelocityX = idleSpeed * PrevDirection;
     }
 
     private void Fight()

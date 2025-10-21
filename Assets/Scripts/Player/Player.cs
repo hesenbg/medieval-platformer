@@ -204,7 +204,7 @@ public class Player : MonoBehaviour
 
     void HandleDash()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && IsDashAble)
+        if (Input.GetKeyDown(KeyCode.Q) && IsDashAble && !IsOnGround )
         {
             StartCoroutine(Dash());
         }

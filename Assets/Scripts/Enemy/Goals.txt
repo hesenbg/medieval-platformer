@@ -1,0 +1,35 @@
+
+
+
+ data needs to save
+
+ 1) player
+	health (float)
+	position (vector3)
+	direction(not neccecary)
+	index of scene that player reached
+
+2) enemies
+	number of them each type struct
+	position
+	health
+
+3) misclaenius
+	volume of sound float
+	fullscreen  bool
+
+
+	struct enemydata{
+		bool IsRanged;
+		vector3 position;
+		int health;
+		
+	}
+
+	struct AllEnemies{
+	    array enemydata;
+		array enemydata;
+		count;
+	}
+	
+

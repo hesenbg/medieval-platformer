@@ -5,6 +5,7 @@ public class GuardSight : MonoBehaviour
     public EnemyAI enemy;
     [SerializeField] LayerMask GuardSightLM ;
     public float GuardSightDistance;
+    [SerializeField] float BackSightDistance;
     public bool IsPlayerOnSight = false;
     public bool IsPlayerOnRange = false;
 
@@ -35,7 +36,7 @@ public class GuardSight : MonoBehaviour
     }
     public bool CheckIsPlayerOnSight()
     {
-        return  Physics2D.Raycast(transform.position, transform.right,GuardSightDistance,GuardSightLM);
+        return  Physics2D.Raycast(transform.position, transform.right,GuardSightDistance,GuardSightLM) || Physics2D.Raycast(transform.position, -transform.right, BackSightDistance, GuardSightLM);
     }
 
     public bool CheckIsPlayerOnRange(float Range)
@@ -44,18 +45,19 @@ public class GuardSight : MonoBehaviour
         {
             return true;
         }
-        else
+        else 
         {
             return false;
         }
     }
     void OnDrawGizmosSelected()
     {
-        if (!Application.isPlaying) return;
 
         // Draw the overlap box at the same position and size
         Gizmos.color =  UnityEngine.Color.green;
 
         Gizmos.DrawLine(transform.position, transform.position+ transform.right.normalized*GuardSightDistance);
+        Gizmos.DrawLine(transform.position, transform.position - transform.right.normalized * BackSightDistance);
+
     }
 }
