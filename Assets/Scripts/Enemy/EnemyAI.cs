@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     // === Health & Combat ===
     private float damagePushVelocity = 1f;
     private float stunDuration = 1.5f; 
+    float CurDirection;
 
     // === Movement ===
     [SerializeField] float idleSpeed = 2.5f;
@@ -41,11 +42,14 @@ public class EnemyAI : MonoBehaviour
 
         rightChecker = gameObject.GetComponentInChildren<GroundCheking>();
         combat = GetComponent<EnemyCombat>();
+
+        CurDirection = moveDirection;
     }
 
     private void Update()
     {
         UpdateAI();
+        Flip();
     }
 
     public void UpdateAI()
@@ -119,10 +123,19 @@ public class EnemyAI : MonoBehaviour
         if (!rightChecker.IsPressing)
         {
             moveDirection *= -1;
-            transform.Rotate(0, 180f, 0);
+            
         }
 
         rb.linearVelocityX = idleSpeed * PrevDirection;
+    }
+
+    void Flip()
+    {
+        if (CurDirection != moveDirection)
+        {
+            CurDirection  = moveDirection;
+            transform.Rotate(0,180, 0);
+        }
     }
 
     private void Fight()

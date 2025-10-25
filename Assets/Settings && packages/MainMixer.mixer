@@ -33,7 +33,7 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: 99854b72dc17db342a352fe71c6c2897
-    name: VFXVolume
+    name: MasterVolume
   m_AudioMixerGroupViews:
   - guids:
     - a3b7341acfa62a142b57c448fadf5c70

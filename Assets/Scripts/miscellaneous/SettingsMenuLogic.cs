@@ -18,7 +18,9 @@ public class SettingsMenuLogic : MonoBehaviour
     }
     public void SetMasterVolume(float volume)
     {
-        mainMixer.SetFloat("VFXVolume", Mathf.Log10(volume) * 20);
+        float a;
+        mainMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        mainMixer.GetFloat("MasterVolume", out a);
     }
 
     public void ToggleFullscreen()

@@ -1,7 +1,6 @@
 using System.Collections;
-using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
     // === Components ===
@@ -38,12 +37,30 @@ public class Player : MonoBehaviour
     public float MaxHealth;
 
     // === Unity Events ===
+
+    public void SavePlayer()
+    {
+        SaveData data = new SaveData(this);
+
+        SerilizationManager.Save(data);
+    }
+
+    public void LoadPlayer()
+    {
+        SaveData data = (SaveData)SerilizationManager.Load();
+
+        CurrentHealth = data.Health;
+
+        transform.position = new Vector3(data.Position[0],
+            data.Position[1],
+            data.Position[2]);
+    }
+
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        tr = GetComponent<TrailRenderer>();
-        animator = GetComponent<Animator>();
-        sp = GetComponent<SpriteRenderer>();
+        GetComponenets();
+
+        LoadPlayer();
     }
 
     void Start()
@@ -89,6 +106,14 @@ public class Player : MonoBehaviour
         {
             IsOnGround = false;
         }
+    }
+
+    void GetComponenets()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        tr = GetComponent<TrailRenderer>();
+        animator = GetComponent<Animator>();
+        sp = GetComponent<SpriteRenderer>();
     }
 
     // 

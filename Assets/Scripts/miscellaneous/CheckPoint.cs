@@ -25,4 +25,9 @@ public class CheckPoint : MonoBehaviour
             }
         }
     }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = transform.position;
+    }
 }

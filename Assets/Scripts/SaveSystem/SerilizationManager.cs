@@ -1,24 +1,20 @@
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SerilizationManager : MonoBehaviour
 {
+    public static string path = Application.persistentDataPath + "/saves" + "GameData" + ".save";
 
-
-    public static bool Save(string saveName, object SaveData) // path and the object tha will saved
+    public static bool Save(object SaveData) // path and the object tha will saved
     {
         BinaryFormatter formatter = GetBinaryFormatter();
 
-
         // if such directory doesnt exist create one
-        if (!Directory.Exists(Application.persistentDataPath + "/saves"))
+        if (!Directory.Exists(path))
         {
-            Directory.CreateDirectory(Application.persistentDataPath + "/saves");
+            Directory.CreateDirectory(path);
         }
-
-        string path = Application.persistentDataPath + "/saves" + saveName + ".save";
 
         FileStream file = File.Create(path);
 
@@ -29,18 +25,16 @@ public class SerilizationManager : MonoBehaviour
         return true;
     }
 
-
-
-    public static object Load(string Path)
+    public static object Load()
     {
-        if (!File.Exists(Path))
+        if (!File.Exists(path))
         {
             return null;
         }
 
         BinaryFormatter formatter = GetBinaryFormatter();
 
-        FileStream file = File.Open(Path, FileMode.Open);
+        FileStream file = File.Open(path, FileMode.Open);
 
         try
         {
@@ -50,7 +44,7 @@ public class SerilizationManager : MonoBehaviour
         }
         catch
         {
-            Debug.LogWarningFormat("failed to reload" + Path);
+            Debug.LogWarningFormat("failed to reload" + path);
             file.Close() ;
             return null;
         }
