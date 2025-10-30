@@ -3698,7 +3698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 1955822467}
-  PauseMenu: {fileID: 0}
+  PauseMenu: {fileID: 2168092289773175330, guid: 1692854365bffdb44a4107ab9228bcb3, type: 3}
   MainMenuIndex: 0
   situation: 0
 --- !u!4 &1193394137

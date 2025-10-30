@@ -50,6 +50,8 @@ public class SerilizationManager : MonoBehaviour
         }
     }
 
+    
+
 
     public static BinaryFormatter GetBinaryFormatter()
     {

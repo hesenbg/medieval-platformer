@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
@@ -36,13 +35,20 @@ public class Player : MonoBehaviour
     public float CurrentHealth;
     public float MaxHealth;
 
-    // === Unity Events ===
+    // === save systems ===
+    bool IsFirstSave = false;
 
     public void SavePlayer()
     {
+        if (IsFirstSave)
+        {
+            return;
+        }
         SaveData data = new SaveData(this);
 
         SerilizationManager.Save(data);
+
+        IsFirstSave = true;
     }
 
     public void LoadPlayer()
@@ -56,11 +62,23 @@ public class Player : MonoBehaviour
             data.Position[2]);
     }
 
+    void SaveLoad()
+    {
+        if (!IsFirstSave)
+        {
+            SavePlayer();
+        }
+        else
+        {
+            LoadPlayer();
+        }
+    }
+
     void Awake()
     {
         GetComponenets();
 
-        LoadPlayer();
+        SaveLoad();
     }
 
     void Start()
