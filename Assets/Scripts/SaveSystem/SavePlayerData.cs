@@ -1,5 +1,5 @@
 [System.Serializable]
-public class SaveData
+public class SavePlayerData
 {
     public float Health;
 
@@ -7,7 +7,7 @@ public class SaveData
 
     //private int Level;
 
-    public SaveData(Player player)
+    public SavePlayerData(Player player)
     {
         Health = player.CurrentHealth;
 

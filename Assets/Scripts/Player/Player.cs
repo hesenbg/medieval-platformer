@@ -38,47 +38,11 @@ public class Player : MonoBehaviour
     // === save systems ===
     bool IsFirstSave = false;
 
-    public void SavePlayer()
-    {
-        if (IsFirstSave)
-        {
-            return;
-        }
-        SaveData data = new SaveData(this);
 
-        SerilizationManager.Save(data);
-
-        IsFirstSave = true;
-    }
-
-    public void LoadPlayer()
-    {
-        SaveData data = (SaveData)SerilizationManager.Load();
-
-        CurrentHealth = data.Health;
-
-        transform.position = new Vector3(data.Position[0],
-            data.Position[1],
-            data.Position[2]);
-    }
-
-    void SaveLoad()
-    {
-        if (!IsFirstSave)
-        {
-            SavePlayer();
-        }
-        else
-        {
-            LoadPlayer();
-        }
-    }
 
     void Awake()
     {
         GetComponenets();
-
-        SaveLoad();
     }
 
     void Start()

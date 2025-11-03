@@ -23,6 +23,11 @@ public class SettingsMenuLogic : MonoBehaviour
         mainMixer.GetFloat("MasterVolume", out a);
     }
 
+    public void GetSaveName(string Name)
+    {
+
+    }
+
     public void ToggleFullscreen()
     {
         Screen.fullScreen = FullScreen.isOn;

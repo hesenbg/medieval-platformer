@@ -4,58 +4,77 @@ using UnityEngine;
 
 public class SerilizationManager : MonoBehaviour
 {
-    public static string path = Application.persistentDataPath + "/saves" + "GameData" + ".save";
+    public static SerilizationManager Instance { get; private set; }
 
-    public static bool Save(object SaveData) // path and the object tha will saved
+    private void Awake()
     {
-        BinaryFormatter formatter = GetBinaryFormatter();
-
-        // if such directory doesnt exist create one
-        if (!Directory.Exists(path))
+        if (Instance != null && Instance != this)
         {
-            Directory.CreateDirectory(path);
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
-        FileStream file = File.Create(path);
+    private static string SaveDirectory => Path.Combine(Application.persistentDataPath, "saves");
 
-        formatter.Serialize(file, SaveData);
+    private static string GetSavePath(string saveName)
+    {
+        return Path.Combine(SaveDirectory, saveName + ".data");
+    }
 
-        file.Close();
+    public static void CreateSaveFile(string saveName)
+    {
+        if (!Directory.Exists(SaveDirectory))
+            Directory.CreateDirectory(SaveDirectory);
+
+        string path = GetSavePath(saveName);
+
+        if (!File.Exists(path))
+        {
+            using (FileStream file = File.Create(path)) { }
+        }
+    }
+
+    public bool SaveData(object saveData, string saveName)
+    {
+        if (!Directory.Exists(SaveDirectory))
+            Directory.CreateDirectory(SaveDirectory);
+
+        BinaryFormatter formatter = GetBinaryFormatter();
+        string path = GetSavePath(saveName);
+
+        using (FileStream file = File.Create(path))
+        {
+            formatter.Serialize(file, saveData);
+        }
 
         return true;
     }
 
-    public static object Load()
+    public static object Load(string saveName)
     {
+        string path = GetSavePath(saveName);
+
         if (!File.Exists(path))
-        {
             return null;
-        }
 
         BinaryFormatter formatter = GetBinaryFormatter();
 
-        FileStream file = File.Open(path, FileMode.Open);
-
-        try
+        using (FileStream file = File.Open(path, FileMode.Open))
         {
-            object save = formatter.Deserialize(file);
-            file.Close();
-            return save;
-        }
-        catch
-        {
-            Debug.LogWarningFormat("failed to reload" + path);
-            file.Close() ;
-            return null;
+            try
+            {
+                return formatter.Deserialize(file);
+            }
+            catch
+            {
+                Debug.LogWarning($"Failed to load: {path}");
+                return null;
+            }
         }
     }
 
-    
-
-
-    public static BinaryFormatter GetBinaryFormatter()
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        return formatter;
-    }
+    private static BinaryFormatter GetBinaryFormatter() => new BinaryFormatter();
 }
