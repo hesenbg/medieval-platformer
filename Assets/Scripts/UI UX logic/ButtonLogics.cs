@@ -77,6 +77,17 @@ public class ButtonLogics : MonoBehaviour
         MainMenu.enabled = true;
     }
 
+
+    public void DeleteAllSaves()
+    {
+        string NewPath="";
+
+        string[] filePaths = Directory.GetFiles(Application.persistentDataPath);
+        foreach (string fs in filePaths)
+            NewPath = Path.Combine(Application.persistentDataPath, "saves");
+            File.Delete(NewPath);
+    }
+
     public void LoadGame()
     {
 

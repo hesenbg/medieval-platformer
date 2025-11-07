@@ -11,20 +11,28 @@ public class SaveUILogic : MonoBehaviour
         RefreshSaveList();
     }
 
-    public void RefreshSaveList()
+    public string[] GetSavePaths()
     {
         string saveDir = Path.Combine(Application.persistentDataPath, "saves");
 
         if (!Directory.Exists(saveDir))
         {
             Debug.Log("No save directory found.");
-            return;
+            return null;
         }
 
         // Clear previous options before adding new ones
         savedGamesDropdown.ClearOptions();
 
         string[] saveFiles = Directory.GetFiles(saveDir, "*.data");
+
+        return saveFiles;
+    }
+
+    public void RefreshSaveList()
+    {
+        string[] saveFiles = GetSavePaths();
+
 
         foreach (string filePath in saveFiles)
         {
@@ -35,5 +43,18 @@ public class SaveUILogic : MonoBehaviour
 
         // Refresh the dropdown visually
         savedGamesDropdown.RefreshShownValue();
+    }
+
+    public void DeleteSaveList()
+    {
+
+        string[] SavePaths = GetSavePaths();
+
+        foreach (string filePath in SavePaths)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+
+            File.Delete(filePath);
+        }
     }
 }
