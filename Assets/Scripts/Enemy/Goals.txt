@@ -1,10 +1,18 @@
 
 
-open game 
-	save()
 
-if(die)
-	load
-		
-if(checkpoint)
-	save()
+
+
+
+
+
+
+function that saves the file selected 
+	get the dropdown and path is the value index of options array
+	
+
+call a function everytime load a level scene 
+	if selected path doesnt have any data 
+		save
+	else 
+		load

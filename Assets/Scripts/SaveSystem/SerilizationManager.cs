@@ -19,7 +19,7 @@ public class SerilizationManager : MonoBehaviour
 
     private static string SaveDirectory => Path.Combine(Application.persistentDataPath, "saves");
 
-    private static string GetSavePath(string saveName)
+    public static string GetSavePath(string saveName)
     {
         return Path.Combine(SaveDirectory, saveName + ".data");
     }

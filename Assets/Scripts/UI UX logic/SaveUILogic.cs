@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using System.IO;
-
 public class SaveUILogic : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown savedGamesDropdown;

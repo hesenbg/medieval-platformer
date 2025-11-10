@@ -12,9 +12,6 @@ public class ButtonLogics : MonoBehaviour
 
     [SerializeField] Canvas SavedGamesUI;
 
-    [Header("Components")]
-    TMP_Dropdown SaveOptions;
-
     private void Update()
     {
 
@@ -75,6 +72,21 @@ public class ButtonLogics : MonoBehaviour
         Current.enabled = false;
 
         MainMenu.enabled = true;
+    }
+
+
+    public void Choose(int a)
+    {
+        Debug.Log(a);
+    }
+
+    public void ChooseSelectedPath(TMP_Dropdown Paths)
+    {
+        string Choosen = ""; // you were the choosen one anakin
+
+        Choosen = SerilizationManager.GetSavePath(Choosen);
+
+        FileSelectionManager.Instance.SelectedFilePath = Paths.options[Paths.value].text;
     }
 
 

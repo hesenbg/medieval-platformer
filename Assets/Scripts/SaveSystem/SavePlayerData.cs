@@ -17,4 +17,13 @@ public class SavePlayerData
           player.transform.position.z
         };    
     }
+    public static GameData Capture()
+    {
+        return null;
+    }
+
+    public static void Apply(GameData data)
+    {
+
+    }
 }
