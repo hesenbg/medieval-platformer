@@ -22,6 +22,11 @@ public class CheckPoint : MonoBehaviour
             if(Mathf.Abs( player.transform.position.x-transform.position.x) > CheckDistance  && player.IsOnGround)
             {
                 transform.position = player.transform.position;
+
+                SavePlayerData data = new SavePlayerData(player);
+
+                SerilizationManager.SaveData(data,
+                    FileSelectionManager.SelectedFilePath, true);
             }
         }
     }

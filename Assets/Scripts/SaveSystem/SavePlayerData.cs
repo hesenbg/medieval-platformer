@@ -5,7 +5,7 @@ public class SavePlayerData
 
     public float[] Position;
 
-    //private int Level;
+    public int Level = 1;
 
     public SavePlayerData(Player player)
     {
@@ -16,14 +16,5 @@ public class SavePlayerData
           player.transform.position.y,
           player.transform.position.z
         };    
-    }
-    public static GameData Capture()
-    {
-        return null;
-    }
-
-    public static void Apply(GameData data)
-    {
-
     }
 }

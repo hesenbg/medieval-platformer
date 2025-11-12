@@ -33,18 +33,25 @@ public class SerilizationManager : MonoBehaviour
 
         if (!File.Exists(path))
         {
-            using (FileStream file = File.Create(path)) { }
+            FileStream file = File.Create(path);
         }
     }
 
-    public bool SaveData(object saveData, string saveName)
+    public static bool SaveData(object saveData, string saveName, bool IsPath)
     {
         if (!Directory.Exists(SaveDirectory))
             Directory.CreateDirectory(SaveDirectory);
 
         BinaryFormatter formatter = GetBinaryFormatter();
-        string path = GetSavePath(saveName);
-
+        string path;
+        if (!IsPath)
+        {
+            path = GetSavePath(saveName);
+        }
+        else
+        {
+            path = saveName;
+        }
         using (FileStream file = File.Create(path))
         {
             formatter.Serialize(file, saveData);
@@ -53,9 +60,17 @@ public class SerilizationManager : MonoBehaviour
         return true;
     }
 
-    public static object Load(string saveName)
+    public static object Load(string saveName, bool IsPath)
     {
-        string path = GetSavePath(saveName);
+        string path;
+        if (!IsPath)
+        {
+            path = GetSavePath(saveName);
+        }
+        else
+        {
+            path = saveName;
+        }
 
         if (!File.Exists(path))
             return null;
@@ -75,6 +90,7 @@ public class SerilizationManager : MonoBehaviour
             }
         }
     }
+
 
     private static BinaryFormatter GetBinaryFormatter() => new BinaryFormatter();
 }

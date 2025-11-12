@@ -13,8 +13,6 @@ public class EnemyData
     }
 }
 [System.Serializable]
-
-
 public class GameData
 {
 

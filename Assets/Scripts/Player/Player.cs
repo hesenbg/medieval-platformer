@@ -35,13 +35,27 @@ public class Player : MonoBehaviour
     public float CurrentHealth;
     public float MaxHealth;
 
-    // === save systems ===
-    bool IsFirstSave = false;
+    void Load()
+    {
+        SavePlayerData data = FileSelectionManager.PlayerData;
 
-
+        if(data == null)
+        {
+            return;
+        }
+        else
+        {
+            this.CurrentHealth = data.Health;
+            this.transform.position = new Vector3(data.Position[0],
+                data.Position[1],
+                data.Position[2]);
+        }
+    }
+   
 
     void Awake()
     {
+        Load();
         GetComponenets();
     }
 

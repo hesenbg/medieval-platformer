@@ -1,6 +1,7 @@
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class ButtonLogics : MonoBehaviour
 {
     [Header("UIs")]
@@ -12,9 +13,11 @@ public class ButtonLogics : MonoBehaviour
 
     [SerializeField] Canvas SavedGamesUI;
 
+
+
     private void Update()
     {
-
+        //Debug.Log(FileSelectionManager.Instance.SelectedFilePath);
     }
 
     public void AddSaveOption(string SaveName)
@@ -75,18 +78,17 @@ public class ButtonLogics : MonoBehaviour
     }
 
 
-    public void Choose(int a)
-    {
-        Debug.Log(a);
-    }
-
     public void ChooseSelectedPath(TMP_Dropdown Paths)
     {
         string Choosen = ""; // you were the choosen one anakin
 
+        Choosen = Paths.options[Paths.value].text;
+
         Choosen = SerilizationManager.GetSavePath(Choosen);
 
-        FileSelectionManager.Instance.SelectedFilePath = Paths.options[Paths.value].text;
+        FileSelectionManager.SelectedFilePath = Choosen;
+
+        Debug.Log(FileSelectionManager.SelectedFilePath);
     }
 
 
@@ -102,7 +104,20 @@ public class ButtonLogics : MonoBehaviour
 
     public void LoadGame()
     {
+        // check if choosen path has data in it 
+        object Data = SerilizationManager.Load(FileSelectionManager.SelectedFilePath
+            , true);
+        
+        if(Data == null)
+        {
+            SceneManager.LoadSceneAsync(1);
+        }
+        else
+        {
+            FileSelectionManager.PlayerData = (SavePlayerData)Data;
 
+            SceneManager.LoadSceneAsync(FileSelectionManager.PlayerData.Level);
+        }
     }
 
     public void QuitApp()
