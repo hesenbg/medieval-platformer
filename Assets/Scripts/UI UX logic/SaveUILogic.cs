@@ -32,7 +32,6 @@ public class SaveUILogic : MonoBehaviour
     {
         string[] saveFiles = GetSavePaths();
 
-
         foreach (string filePath in saveFiles)
         {
             // Get only the filename (without directory and extension)

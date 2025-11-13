@@ -12,7 +12,9 @@ public class CheckPoint : MonoBehaviour
         transform.position = player.transform.position;
     }
     void Update()
-    {        
+    {
+
+        Debug.Log(FileSelectionManager.SelectedFilePath);
         if(CheckTime > CheckCurrentTime)
         {
             CheckCurrentTime += Time.deltaTime;
@@ -26,7 +28,7 @@ public class CheckPoint : MonoBehaviour
                 SavePlayerData data = new SavePlayerData(player);
 
                 SerilizationManager.SaveData(data,
-                    FileSelectionManager.SelectedFilePath, true);
+                FileSelectionManager.SelectedFilePath, true);
             }
         }
     }

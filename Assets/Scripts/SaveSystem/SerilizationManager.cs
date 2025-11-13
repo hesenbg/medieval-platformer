@@ -2,21 +2,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SerilizationManager : MonoBehaviour
+public static class SerilizationManager
 {
-    public static SerilizationManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
     private static string SaveDirectory => Path.Combine(Application.persistentDataPath, "saves");
 
     public static string GetSavePath(string saveName)
@@ -26,8 +13,7 @@ public class SerilizationManager : MonoBehaviour
 
     public static void CreateSaveFile(string saveName)
     {
-        if (!Directory.Exists(SaveDirectory))
-            Directory.CreateDirectory(SaveDirectory);
+        Directory.CreateDirectory(SaveDirectory);
 
         string path = GetSavePath(saveName);
 
@@ -40,7 +26,7 @@ public class SerilizationManager : MonoBehaviour
     public static bool SaveData(object saveData, string saveName, bool IsPath)
     {
         if (!Directory.Exists(SaveDirectory))
-            Directory.CreateDirectory(SaveDirectory);
+            return false;
 
         BinaryFormatter formatter = GetBinaryFormatter();
         string path;
