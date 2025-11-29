@@ -9,7 +9,7 @@ public class GuardSight : MonoBehaviour
     public bool IsPlayerOnSight = false;
     public bool IsPlayerOnRange = false;
 
-    [SerializeField] float MeleeRange;
+    public float MeleeRange;
     [SerializeField] float ArcherRange;
 
     float CurrentRange;

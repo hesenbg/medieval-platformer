@@ -13,8 +13,6 @@ public class CheckPoint : MonoBehaviour
     }
     void Update()
     {
-
-        Debug.Log(FileSelectionManager.SelectedFilePath);
         if(CheckTime > CheckCurrentTime)
         {
             CheckCurrentTime += Time.deltaTime;

@@ -1,44 +1,40 @@
-using System.Threading.Tasks;
 using UnityEngine;
+
 public class EnemyCombat : MonoBehaviour
 {
     public GameObject Arrow;
-    EnemyAI enemy;
-    [SerializeField] float AttackDelay = 1.5f;
-    float CurrentTime = 0f;
-    [SerializeField] float SlashDistance;
-    [SerializeField] float SlashDamage;
-    EnemyAnimationManager animationManager;
 
+    EnemyAI enemy;
+    EnemyAnimationManager animationManager;
+    GuardSight guardSight;
+
+    [SerializeField] float AttackDelay = 1.5f;
+    [SerializeField] float SlashDamage = 10f;
+
+    float currentTime = 0f;
 
     private void Awake()
     {
+        guardSight = GetComponentInChildren<GuardSight>();
         enemy = GetComponent<EnemyAI>();
-
-        animationManager = gameObject.GetComponentInParent<EnemyAnimationManager>();
+        animationManager = GetComponentInParent<EnemyAnimationManager>();
     }
 
     public void Attack()
     {
-        if (CurrentTime < AttackDelay)
+        currentTime -= Time.deltaTime;
+        if (currentTime > 0f) return;
+
+        currentTime = AttackDelay;
+
+        if (enemy.CurrentEnemyType == EnemyAI.EnemyType.melee)
         {
-            CurrentTime += Time.deltaTime;
+            SlashSword();
+            animationManager.PlayAttack();
         }
         else
         {
-            CurrentTime = 0f;
-
-            if(enemy.CurrentEnemyType == EnemyAI.EnemyType.melee)
-            {
-                // aplly logic
-                SlashSword();
-                // animation
-                animationManager.PlayAttack();
-            }
-            else
-            {
-                ShootArrow();
-            }
+            ShootArrow();
         }
     }
 
@@ -47,20 +43,27 @@ public class EnemyCombat : MonoBehaviour
         Instantiate(Arrow, enemy.transform.position, enemy.transform.rotation);
     }
 
-    public void SlashSword()
+    private void SlashSword()
     {
-        // apply logic
-        RaycastHit2D Hit;
-        Player player;
+        RaycastHit2D hit = Physics2D.CircleCast(
+            transform.position,
+            0.4f,
+            transform.right,          // correct direction
+            guardSight.MeleeRange     // correct distance
+        );
 
-        Hit= Physics2D.CircleCast(transform.position,
-            SlashDistance,
-            transform.right);
-
-        if(Hit.collider.gameObject.layer == 6) { 
-            player = Hit.collider.gameObject.GetComponent<Player>();
-            player.GetDamage(SlashDamage);
+        if (hit.collider != null && hit.collider.gameObject.layer == 6)
+        {
+            Player player = hit.collider.GetComponent<Player>();
+            if (player != null)
+                player.GetDamage(SlashDamage);
         }
     }
-}
 
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + transform.right * guardSight.MeleeRange, 0.4f);
+    }
+}

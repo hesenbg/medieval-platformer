@@ -74,7 +74,7 @@ public class Melee : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             AttackedEnemy = enemy.GetComponentInParent<EnemyHealthManager>();
-            StartCoroutine(AttackedEnemy.GotDamage(DamageGiven,1));
+            StartCoroutine(AttackedEnemy.GotDamage(DamageGiven,EnemyAI.stunDuration));
 
         }
         hitEnemies = null;

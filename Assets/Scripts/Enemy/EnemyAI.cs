@@ -1,6 +1,5 @@
 using Unity.Mathematics;
 using UnityEngine;
-
 public class EnemyAI : MonoBehaviour
 {
     // === External References ===
@@ -13,16 +12,13 @@ public class EnemyAI : MonoBehaviour
     EnemyCombat combat;
 
     // === Health & Combat ===
-    private float damagePushVelocity = 1f;
-    private float stunDuration = 1.5f; 
+    public static float stunDuration = 0.2f ; 
     float CurDirection;
 
     // === Movement ===
     [SerializeField] float idleSpeed = 2.5f;
     [SerializeField] float chaseSpeed = 4f;
     [SerializeField] float moveDirection = 1f;
-    [SerializeField] float StunDuration;
-    float StunDurationValue =0;
 
     // === State Management ===
     public enum State { Wander, Fighting, Stunned, Chasing }
@@ -30,9 +26,6 @@ public class EnemyAI : MonoBehaviour
 
     public enum EnemyType { ranged, melee }
     public EnemyType CurrentEnemyType;
-
-    // === Flags ===
-    bool CanAttackAble = false;
 
     void Start()
     {
