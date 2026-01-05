@@ -13,8 +13,6 @@ public class ButtonLogics : MonoBehaviour
 
     [SerializeField] Canvas SavedGamesUI;
 
-
-
     private void Update()
     {
         //Debug.Log(FileSelectionManager.Instance.SelectedFilePath);
@@ -27,14 +25,12 @@ public class ButtonLogics : MonoBehaviour
         BackMainMenu();
     }
 
-
     public void LoadSavedGamesUI()
     {
         SavedGamesUI.enabled = true;
 
         MainMenu.enabled = false;
     }
-
 
     public void LoadSettingsMenu()
     {
@@ -69,7 +65,6 @@ public class ButtonLogics : MonoBehaviour
         NewGameSave.enabled = false;
     }
 
-
     public void PrevButton(Canvas Current)
     {
         Current.enabled = false;
@@ -90,7 +85,6 @@ public class ButtonLogics : MonoBehaviour
 
         Debug.Log(FileSelectionManager.SelectedFilePath);
     }
-
 
     public void DeleteAllSaves()
     {

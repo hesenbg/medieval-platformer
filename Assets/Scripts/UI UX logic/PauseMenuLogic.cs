@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class PauseMenuLogic : MonoBehaviour
 {
     [SerializeField] Canvas PauseMenu;
@@ -22,7 +21,6 @@ public class PauseMenuLogic : MonoBehaviour
         PauseMenu.enabled = false;
         Time.timeScale = 1;
     }
-
 
     public void Quit()
     {

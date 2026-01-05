@@ -9,13 +9,15 @@ public class SawBladeLogic : MonoBehaviour
     [SerializeField] float WaitDelay;
     float WaitDelayValue;
 
+    
+
     [Header("Damage Settings")]
     [SerializeField] float BladeDamage;
     [SerializeField] float Radius;
     [SerializeField] LayerMask PlayerMask;
     [SerializeField] float PushForce;
 
-    [SerializeField] enum BladeMoveAxis { X, Y }
+     enum BladeMoveAxis { X, Y }
     [SerializeField] BladeMoveAxis MoveAxis;
 
     Rigidbody2D rb;
