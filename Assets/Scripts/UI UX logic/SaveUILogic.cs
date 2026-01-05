@@ -5,9 +5,19 @@ public class SaveUILogic : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown savedGamesDropdown;
 
+    private void OnEnable()
+    {
+        RefreshSaveList();
+    }
+
     private void Start()
     {
         RefreshSaveList();
+    }
+
+    private void Update()
+    {
+        
     }
 
     public string[] GetSavePaths()
@@ -41,6 +51,17 @@ public class SaveUILogic : MonoBehaviour
 
         // Refresh the dropdown visually
         savedGamesDropdown.RefreshShownValue();
+    }
+
+    public void ChooseSelectedPath()
+    {
+        string Choosen = ""; // you were the choosen one anakin
+
+        Choosen = savedGamesDropdown.options[savedGamesDropdown.value].text;
+
+        Choosen = SerilizationManager.GetSavePath(Choosen);
+
+        FileSelectionManager.SelectedFilePath = Choosen;
     }
 
     public void DeleteSaveList()

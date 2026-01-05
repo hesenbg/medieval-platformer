@@ -20,7 +20,6 @@ public class ButtonLogics : MonoBehaviour
 
     public void AddSaveOption(string SaveName)
     {
-        Debug.Log(SaveName);
         SerilizationManager.CreateSaveFile(SaveName);
         BackMainMenu();
     }
@@ -73,18 +72,6 @@ public class ButtonLogics : MonoBehaviour
     }
 
 
-    public void ChooseSelectedPath(TMP_Dropdown Paths)
-    {
-        string Choosen = ""; // you were the choosen one anakin
-
-        Choosen = Paths.options[Paths.value].text;
-
-        Choosen = SerilizationManager.GetSavePath(Choosen);
-
-        FileSelectionManager.SelectedFilePath = Choosen;
-
-        Debug.Log(FileSelectionManager.SelectedFilePath);
-    }
 
     public void DeleteAllSaves()
     {
@@ -98,20 +85,7 @@ public class ButtonLogics : MonoBehaviour
 
     public void LoadGame()
     {
-        // check if choosen path has data in it 
-        object Data = SerilizationManager.Load(FileSelectionManager.SelectedFilePath
-            , true);
-        
-        if(Data == null)
-        {
-            SceneManager.LoadSceneAsync(1);
-        }
-        else
-        {
-            FileSelectionManager.PlayerData = (SavePlayerData)Data;
-
-            SceneManager.LoadSceneAsync(FileSelectionManager.PlayerData.Level);
-        }
+        SerilizationManager.LoadSelectedGame();
     }
 
     public void QuitApp()

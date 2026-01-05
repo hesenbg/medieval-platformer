@@ -1,6 +1,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class SerilizationManager
 {
@@ -74,6 +75,24 @@ public static class SerilizationManager
                 Debug.LogWarning($"Failed to load: {path}");
                 return null;
             }
+        }
+    }
+
+    public static void LoadSelectedGame()
+    {
+        // check if choosen path has data in it 
+        object Data = SerilizationManager.Load(FileSelectionManager.SelectedFilePath
+            , true);
+
+        if (Data == null)
+        {
+            SceneManager.LoadSceneAsync(1);
+        }
+        else
+        {
+            FileSelectionManager.PlayerData = (SavePlayerData)Data;
+
+            SceneManager.LoadSceneAsync(FileSelectionManager.PlayerData.Level);
         }
     }
 
