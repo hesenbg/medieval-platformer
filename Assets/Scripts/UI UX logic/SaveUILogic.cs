@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
-using System.IO;
+using UnityEngine.SceneManagement;
 public class SaveUILogic : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown savedGamesDropdown;
@@ -15,11 +17,7 @@ public class SaveUILogic : MonoBehaviour
         RefreshSaveList();
     }
 
-    private void Update()
-    {
-        
-    }
-
+    // deleting and refreshing the paths
     public string[] GetSavePaths()
     {
         string saveDir = Path.Combine(Application.persistentDataPath, "saves");
@@ -38,32 +36,44 @@ public class SaveUILogic : MonoBehaviour
         return saveFiles;
     }
 
+    // refreshes when new pth added to the dropdown
     public void RefreshSaveList()
     {
         string[] saveFiles = GetSavePaths();
+        if (saveFiles == null || saveFiles.Length == 0) return;
+
+        savedGamesDropdown.ClearOptions();
+        List<string> options = new List<string>();
 
         foreach (string filePath in saveFiles)
         {
-            // Get only the filename (without directory and extension)
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
-            savedGamesDropdown.options.Add(new TMP_Dropdown.OptionData(fileName));
+            options.Add(Path.GetFileNameWithoutExtension(filePath));
         }
 
-        // Refresh the dropdown visually
+        savedGamesDropdown.AddOptions(options);
         savedGamesDropdown.RefreshShownValue();
+
+        // This ensures the first item is selected in logic as well as UI
+        if (options.Count > 0)
+        {
+            savedGamesDropdown.value = 0;
+            ChooseSelectedPath(0);
+        }
     }
 
-    public void ChooseSelectedPath()
+    // updates the choosen path in dropdown
+    public void ChooseSelectedPath(int Value)
     {
         string Choosen = ""; // you were the choosen one anakin
 
-        Choosen = savedGamesDropdown.options[savedGamesDropdown.value].text;
+        Choosen = savedGamesDropdown.options[Value].text;
 
         Choosen = SerilizationManager.GetSavePath(Choosen);
 
         FileSelectionManager.SelectedFilePath = Choosen;
     }
 
+    // used in dropdown 
     public void DeleteSaveList()
     {
 
@@ -74,6 +84,25 @@ public class SaveUILogic : MonoBehaviour
             string fileName = Path.GetFileNameWithoutExtension(filePath);
 
             File.Delete(filePath);
+        }
+    }
+
+    // if data is null, loads up the default 
+    public void LoadGame()
+    {
+        SceneManager.LoadSceneAsync(1);
+        return;
+
+        // check if choosen path has data in it 
+        object Data = SerilizationManager.Load(FileSelectionManager.SelectedFilePath
+            , true);
+
+        if (Data == null)
+        {
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync(1);
         }
     }
 }

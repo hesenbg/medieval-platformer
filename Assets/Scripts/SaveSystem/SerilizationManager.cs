@@ -21,6 +21,7 @@ public static class SerilizationManager
         if (!File.Exists(path))
         {
             FileStream file = File.Create(path);
+            file.Close();
         }
     }
 
@@ -77,25 +78,5 @@ public static class SerilizationManager
             }
         }
     }
-
-    public static void LoadSelectedGame()
-    {
-        // check if choosen path has data in it 
-        object Data = SerilizationManager.Load(FileSelectionManager.SelectedFilePath
-            , true);
-
-        if (Data == null)
-        {
-            SceneManager.LoadSceneAsync(1);
-        }
-        else
-        {
-            FileSelectionManager.PlayerData = (SavePlayerData)Data;
-
-            SceneManager.LoadSceneAsync(FileSelectionManager.PlayerData.Level);
-        }
-    }
-
-
     private static BinaryFormatter GetBinaryFormatter() => new BinaryFormatter();
 }

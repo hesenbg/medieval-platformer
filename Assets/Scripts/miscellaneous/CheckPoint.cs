@@ -13,6 +13,8 @@ public class CheckPoint : MonoBehaviour
     }
     void Update()
     {
+
+
         if(CheckTime > CheckCurrentTime)
         {
             CheckCurrentTime += Time.deltaTime;
